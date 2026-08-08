@@ -1,0 +1,29 @@
+services:
+  node1:
+    build: .
+    image: hazelcast-demo:latest
+    container_name: hz-node1
+    ports:
+      - "8080:8080"
+    environment:
+      APP_HAZELCAST_INSTANCE_NAME: node1
+      # Danh sách để 2 node tìm thấy nhau qua DNS của docker network
+      APP_HAZELCAST_MEMBERS: node1,node2
+    networks:
+      - hazelcast
+
+  node2:
+    build: .
+    image: hazelcast-demo:latest
+    container_name: hz-node2
+    ports:
+      - "8081:8080"
+    environment:
+      APP_HAZELCAST_INSTANCE_NAME: node2
+      APP_HAZELCAST_MEMBERS: node1,node2
+    networks:
+      - hazelcast
+
+networks:
+  hazelcast:
+    driver: bridge

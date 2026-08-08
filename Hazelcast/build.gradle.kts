@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("application")
+    id("org.springframework.boot") version "4.1.0"
 }
 
 group = "org.example"
@@ -16,11 +16,20 @@ java {
     }
 }
 
-dependencies {
-    implementation("com.hazelcast:hazelcast:5.7.0")
+val springBootBom = "org.springframework.boot:spring-boot-dependencies:4.1.0"
 
-    testImplementation(platform("org.junit:junit-bom:6.0.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+dependencies {
+    implementation(platform(springBootBom))
+    // annotationProcessor không kế thừa implementation nên phải khai BOM riêng,
+    // nếu không spring-boot-configuration-processor sẽ thiếu version
+    annotationProcessor(platform(springBootBom))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    // Spring Boot BOM quản Hazelcast 5.5.0, pin đè lên bản mới nhất
+    implementation("com.hazelcast:hazelcast:5.7.0")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -34,9 +43,8 @@ val hazelcastJvmArgs = listOf(
     "--add-opens", "jdk.management/com.sun.management.internal=ALL-UNNAMED"
 )
 
-application {
-    mainClass = "org.example.Main"
-    applicationDefaultJvmArgs = hazelcastJvmArgs
+tasks.bootRun {
+    jvmArgs(hazelcastJvmArgs)
 }
 
 tasks.test {

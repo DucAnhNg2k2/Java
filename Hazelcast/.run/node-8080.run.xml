@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="node-8080" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="Hazelcast" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.Application" />
+    <option name="VM_PARAMETERS" value="--add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hazelcast-demo
+
+app:
+  hazelcast:
+    # Mặc định lấy theo port HTTP để chạy 2 instance ở local vẫn phân biệt được node
+    instance-name: node-${server.port}
+    cluster-name: dev-cluster
+    port: 5701
+    members:
+      - 127.0.0.1
+
+logging:
+  level:
+    com.hazelcast: INFO
